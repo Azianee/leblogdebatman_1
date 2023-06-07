@@ -1,16 +1,37 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+{# 3 #}
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+{# On crée une variable Twig "route" qui contiendra le nom de la route actuellement chargée (servira pour le menu entre autre)  #}
+{% set route = app.request.attributes.get('_route') %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {# Affichage du titre de la page venant de la vue via le block "title", suivi du nom du site, collé à côté  #}
+    <title>{% block title %}{% endblock %} -Le blog de Batman </title>
+    {# Inclusion du font awesome  #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {# Inclusion de bootstrap  #}
+    <link rel="stylesheet" href="{{ asset('CSS/bootstrap.min.css') }}">
+    {# Inclusion du styles css  #}
+    <link rel="stylesheet" href="{{ asset('CSS/styles.css') }}">
+    {# Block pour permettre aux pages de rajouter individuellement des des fichiers CSS additionnels  #}
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+
+{# Inclusion du menu principale du site #}
+{% include 'partials/_main_navbar.html.twig' %}
+
+{# Inclusion du contenu des pages(via le block "body") #}
+{% block body %} {% endblock %}
+
+{# Inclusion JS Bootstap #}
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+{# Block pour permettre aux page de rajouter individuellement des fichiers JS additionnels #}
+{% block js %} {% endblock %}
+</body>
 </html>
