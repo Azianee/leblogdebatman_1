@@ -1,0 +1,28 @@
+{# Utilisation du squelette "base.html.twig #}
+{% extends "base.html.twig" %}
+
+{# Définition du titre de la page #}
+{% block title %}  Creer un compte {% endblock %}
+
+{# Remplissage du body de la page #}
+
+{% block body %}
+
+    {# grille Bootstrap #}
+<div class="container-fluid">
+
+    {# Titre H1 de la page #}
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center my-5">Créer un compte</h1>
+        </div>
+    </div>
+
+    {# Formulaire d'inscription #}
+    <div class="row">
+        <div class="col-12 col-md-4 mx-auto">
+            {{ form(registrationForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
