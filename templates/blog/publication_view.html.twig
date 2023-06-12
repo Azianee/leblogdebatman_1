@@ -40,8 +40,8 @@
 
                     {# Affichage du contenu de l'article #}
                     <div class="mb-2">
-                        {{article.content |striptags|excerpt(100)}}
-                        <a class="text-decoration-none" href="{{ path('blog_publication_view', {slug: article.slug}) }} ">Lire la suite</a>
+                        {{article.content |purify}}
+
                     </div>
 
                 </div>
