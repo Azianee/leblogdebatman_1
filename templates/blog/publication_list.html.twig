@@ -18,6 +18,12 @@
             </div>
         </div>
 
+        {# Affichage du nombre total d'articles #}
+        <div class="row">
+            <div class="col-12 text-center">Nombre total d'articles : {{ articles.getTotalItemCount }}</div>
+        </div>
+
+
         {# Affichage des articles #}
         <div class="row">
 
@@ -35,7 +41,8 @@
                                 <div class="card-header">
 
                                     {# Titre de l'article, cliquable vers la page détaillée de l'article #}
-                                    <a class="text-decoration-none" href="{{ path('blog_publication_view', {slug: article.slug}) }}">
+                                    <a class="text-decoration-none"
+                                       href="{{ path('blog_publication_view', {slug: article.slug}) }}">
                                         <i class="far fa-newspaper me-2"></i>{{ article.title }}
                                     </a>
                                 </div>
@@ -46,12 +53,15 @@
 
                                         {# Affichage du contenu de l'article, tronqué à 100 mots, sans balises html, suivi de "..." et d'un lien "lire la suite" #}
                                         {{ article.content|excerpt (100) }}
-                                        
-                                        <a class="text-decoration-none" href="{{ path('blog_publication_view', {slug: article.slug}) }}">Lire la suite</a>
+                                        <a class="text-decoration-none"
+                                           href="{{ path('blog_publication_view', {slug: article.slug}) }}">Lire la
+                                            suite</a>
                                     </div>
 
                                     {# Date et auteur de l'article #}
-                                    <footer class="blockquote-footer my-2">Publié le <strong>{{ article.publicationDate|date('d/m/y à H:i') }}</strong> par <strong>{{ article.author.pseudonym }}</strong></footer>
+                                    <footer class="blockquote-footer my-2">Publié le
+                                        <strong>{{ article.publicationDate|date('d/m/y à H:i') }}</strong> par
+                                        <strong>{{ article.author.pseudonym }}</strong></footer>
 
 
                                 </div>
@@ -72,7 +82,17 @@
             </div>
 
         </div>
+        {# S'il y a des articles, on affiche le menu de navigation = #}
+        {% if articles is not empty %}
+            <div class="row">
+                <div class="col-12 my-3 text-center">
+                    <div class="d-inline-block">
+                        {{ knp_pagination_render(articles) }}
+                    </div>
+                </div>
+            </div>
 
+        {% endif %}
     </div>
 
 
