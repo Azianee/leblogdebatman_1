@@ -1,0 +1,40 @@
+{# Utilisation du squelette "base.html.twig #}
+{% extends "base.html.twig" %}
+
+{# Définition du titre de la page #}
+{% block title %} Modification d'une publication{% endblock %}
+
+{# Remplissage du body de la page #}
+
+{% block body %}
+
+    {# grille Bootstrap #}
+    <div class="container-fluid">
+
+        {# Titre H1 de la page #}
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center my-5">Modification d'une publication</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center">
+                {# Lien pour revenir sur la fiche de l'article #}
+                <a href="{{ path('blog_publication_view', {slug: edit_form.vars.value.slug}) }}" class="text-decoration-none">Revenir sur l'article</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-8 mx-auto">
+                {{ form(edit_form) }}
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
