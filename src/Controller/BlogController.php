@@ -71,7 +71,7 @@ class BlogController extends AbstractController
     #[Route('/publications/liste/', name: 'publication_list')]
     public function publicationList(ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
     {
-        $requestedPage = $request->query->getInt('page',1);
+        $requestedPage = $request->query->getInt('page', 1);
 
         if ($requestedPage < 1) {
             throw new NotFoundHttpException();
@@ -101,10 +101,35 @@ class BlogController extends AbstractController
     public function publicationView(Article $article): Response
     {
 
-        return $this->render('blog/publication_view.html.twig',[
-            'article'=>$article,
+        return $this->render('blog/publication_view.html.twig', [
+            'article' => $article,
         ]);
     }
 
+    /**
+     * Contrôleur de la page admin servant à supprimer un article via son id passé dans l'url
+     *
+     * Accès réservé aux administrateurs (ROLE_ADMIN)
+     */
+
+    #[Route('/publication/suppression/{id}/', name: 'publication_delete', priority: 10)]
+    #[IsGranted('ROLE_ADMIN')]
+    public function publicationDelete(Article $article, ManagerRegistry $doctrine, Request $request): Response
+    {
+
+        //Vérif si token csrf valide
+        if (!$this->isCsrfTokenValid('blog_publication_delete' . $article->getId(), $request->query->get('csrf_token'))){
+            $this ->addFlash('error', 'Token sécurité invalide, veuillez-ré-essayer.');
+        } else {
+
+            $em = $doctrine->getManager();
+            $em->remove($article);
+            $em->flush();
+
+            $this->addFlash('success', 'La publication a été supprimée avec succès !');
+        }
+        return $this->redirectToRoute('blog_publication_list');
+    }
 }
+
 
