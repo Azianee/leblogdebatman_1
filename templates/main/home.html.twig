@@ -35,6 +35,67 @@
         {# Affichage de l'image fixe en bandeau #}
         <div class="row my-5 batman-cover"></div>
 
+        {# Affichage des derniers articles publiés #}
+        <div class="row">
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="row">
+                    <h2 class="col-12 text-center"> Dernières publications</h2>
+                </div>
+
+
+
+                {# Boucle pour parcourir tous les articles à afficher #}
+                {% for article in articles %}
+
+                    <div class="row">
+
+                        <div class="col-12">
+
+                            <div class="card my-3 bg-black">
+
+                                <div class="card-header">
+
+                                    {# Titre de l'article, cliquable vers la page détaillée de l'article #}
+                                    <a class="text-decoration-none" href="{{ path('blog_publication_view', {slug: article.slug}) }}"><i class="far fa-newspaper me-2"></i>{{ article.title }}</a>
+                                </div>
+
+                                <div class="card-body text-light">
+
+                                    <div class="mb-2">
+
+                                        {# Affichage du contenu de l'article, tronqué à 100 mots, sans balises html, suivi de "..." et d'un lien "lire la suite" #}
+                                        {{ article.content | striptags | excerpt (100) }}
+                                        <a class="text-decoration-none"
+                                           href="{{ path('blog_publication_view', {slug: article.slug}) }}">Lire la
+                                            suite</a>
+                                    </div>
+
+                                    {# Date et auteur de l'article #}
+                                    <footer class="blockquote-footer my-2">Publié le <strong>{{ article.publicationDate | date('d/m/Y à H\\hi') }}</strong> par <strong>{{ article.author.pseudonym }}</strong>
+                                    </footer>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+        {# Contenu de lorem #}
+
+        <div class="row">
+            <div class="col-12 col-md-10 mx-auto">
+                <h2 class="text-center my-4"> lorem ipsum dolor sit amet, consectetur</h2>
+                <p class="text-center"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At ea neque qui
+                    ratione tempore unde voluptas? A deserunt, enim error facilis, ipsum iusto labore libero optio
+                    perferendis provident ratione, voluptas.
+                </p>
+            </div>
+        </div>
+
     </div>
 
 
