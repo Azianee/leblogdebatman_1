@@ -32,6 +32,7 @@ Cette commande créera :
 * Un compte admin (email: a@a.a , password : 'Aziane.123')
 * 10 compte utilisateurs (email aléatoire, pasword : 'Aziane.123')
 * 200 articles
+* Entre 0 et 10 commentaire par article
 
 ### Installation fichiers front-end des bundles (CKEditor)
 ```

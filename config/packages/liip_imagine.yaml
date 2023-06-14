@@ -6,10 +6,16 @@ liip_imagine:
         mode: lazy
 
     filter_sets:
-
+        # Filtre pour afficher la photo de profil dans la page "Mon profil"
         profil:
             quality: 75
             filters:
                 scale:
                     dim: [700, 700]
 
+        # Filtre pour afficher les photos de profil dans la page "Mon profil"
+        comment:
+            quality: 75
+            filters:
+                scale:
+                    dim: [100, 100]

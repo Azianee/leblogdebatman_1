@@ -60,7 +60,7 @@
 
                                     {# Date et auteur de l'article #}
                                     <footer class="blockquote-footer my-2">Publié le
-                                        <strong>{{ article.publicationDate|date('d/m/y à H:i') }}</strong> par
+                                        <strong>{{ article.publicationDate|date('d/m/Y à H:i') }}</strong> par
                                         <strong>{{ article.author.pseudonym }}</strong></footer>
 
                                     {# Si l'utilisateur a le role "ROLE_ADMIN", on affiche un menu avec des boutons permettant de supprimer/modifier l'article #}
