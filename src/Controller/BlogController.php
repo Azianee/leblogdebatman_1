@@ -121,14 +121,12 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment
-                ->setPublicationDate( new \DateTime() )
+                ->setPublicationDate(new \DateTime())
                 ->setAuthor($this->getUser())
-                ->setArticle($article)
-
-            ;
+                ->setArticle($article);
             $em = $doctrine->getManager();
-            $em ->persist($comment);
-            $em ->flush();
+            $em->persist($comment);
+            $em->flush();
 
             unset($comment);
             unset($form);
@@ -195,6 +193,32 @@ class BlogController extends AbstractController
             'edit_form' => $form->createView(),
         ]);
     }
+
+    /**
+     * Contrôleur de la page permettant aux admins de supprimer un commentaire
+     *
+     * Accès réservé aux administrateurs (ROLE_ADMIN)
+     */
+    #[Route('/commentaires/suppression/{id}/', name: 'comment_delete')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function commentDelete(Comment $comment, Request $request, ManagerRegistry $doctrine): Response
+    {
+        //Vérif si token csrf valide
+        if (!$this->isCsrfTokenValid('blog_comment_delete' . $comment->getId(), $request->query->get('csrf_token'))) {
+            $this->addFlash('error', 'Token sécurité invalide, veuillez-ré-essayer.');
+        } else {
+
+            $em = $doctrine->getManager();
+            $em->remove($comment);
+            $em->flush();
+
+            $this->addFlash('success', 'La publication a été supprimée avec succès !');
+        }
+        return $this->redirectToRoute('blog_publication_view', [
+            'slug' => $comment->getArticle()->getSlug(),
+        ]);
+    }
+
 }
 
 
